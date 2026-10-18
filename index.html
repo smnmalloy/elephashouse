@@ -1,14 +1,391 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ElephasHouse</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElephasHouse</title>
+    <meta
+      name="description"
+      content="ElephasHouse — a living story, a place of memory, and a modern myth for the Kingdom of Oaks."
+    />
+    <style>
+      :root {
+        --bg: #0a1117;
+        --panel: #111d2a;
+        --panel-2: #172b3c;
+        --ink: #eaf3ff;
+        --muted: #a8becf;
+        --gold: #d7b56d;
+        --forest: #204d3d;
+        --sage: #8fb39a;
+        --shadow: rgba(0, 0, 0, 0.35);
+      }
 
-  <h1>ElephasHouse</h1>
-  <p>The Kingdom of Oaks is coming soon.</p>
+      * { box-sizing: border-box; }
 
-</body>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #0a1117 0%, #0c1720 100%);
+        color: var(--ink);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(8px);
+        background: rgba(10, 17, 23, 0.72);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        font-size: 1.4rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 20px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      .hero {
+        padding: 96px 0 56px;
+        background:
+          radial-gradient(circle at top, rgba(126, 160, 134, 0.16), transparent 30%),
+          linear-gradient(180deg, rgba(17, 29, 42, 0.96), rgba(10, 17, 23, 0.98));
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 38px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border: 1px solid rgba(215, 181, 109, 0.5);
+        border-radius: 999px;
+        color: var(--gold);
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 20px 0 16px;
+        font-size: clamp(2.8rem, 6vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.05em;
+      }
+
+      .subtitle {
+        font-size: 1.15rem;
+        max-width: 620px;
+        color: var(--muted);
+      }
+
+      .cta-row {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 14px 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+        font-weight: 600;
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--gold), #f1d494);
+        color: #14212d;
+        box-shadow: 0 8px 20px rgba(215, 181, 109, 0.25);
+      }
+
+      .button.secondary {
+        border-color: rgba(255,255,255,0.18);
+        color: var(--ink);
+        background: rgba(255,255,255,0.02);
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+      }
+
+      .hero-card {
+        background: linear-gradient(180deg, rgba(23,43,60,0.9), rgba(17,29,42,0.9));
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        padding: 26px;
+        box-shadow: 0 20px 40px var(--shadow);
+      }
+
+      .card-label {
+        color: var(--gold);
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .map-box {
+        margin-top: 20px;
+        border-radius: 18px;
+        min-height: 220px;
+        background:
+          linear-gradient(135deg, rgba(32,77,61,0.95), rgba(17,29,42,0.92)),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.05) 1px,
+            transparent 1px,
+            transparent 24px
+          );
+        border: 1px solid rgba(143,179,154,0.25);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-box::before,
+      .map-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+
+      .map-box::before {
+        background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.12), transparent 18%);
+      }
+
+      .map-box::after {
+        background: linear-gradient(135deg, transparent 0 60%, rgba(255,255,255,0.12) 60% 62%, transparent 62% 100%);
+      }
+
+      .map-text {
+        position: absolute;
+        left: 22px;
+        bottom: 22px;
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--sage);
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .section-heading {
+        margin-bottom: 28px;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .feature {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 28px 22px;
+      }
+
+      .feature h3 {
+        margin: 0 0 12px;
+        font-size: 1.4rem;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .story {
+        background: linear-gradient(180deg, rgba(17,29,42,0.7), rgba(10,17,23,0.9));
+        border-top: 1px solid rgba(255,255,255,0.08);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .story-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+      }
+
+      .story-block {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 28px;
+      }
+
+      .story-block p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .quote {
+        margin-top: 10px;
+        color: var(--gold);
+        font-size: 1.1rem;
+        font-style: italic;
+      }
+
+      footer {
+        padding: 32px 0 56px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 760px) {
+        .hero-grid,
+        .feature-grid,
+        .story-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 72px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <div class="brand">ElephasHouse</div>
+          <div class="nav-links">
+            <a href="#story">Story</a>
+            <a href="#realm">Realm</a>
+            <a href="#vision">Vision</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">The Kingdom of Oaks</span>
+            <h1>ElephasHouse</h1>
+            <p class="subtitle">
+              A place where memory, myth, and the future of a living world converge — a digital home for story, ritual, and belonging.
+            </p>
+            <div class="cta-row">
+              <a class="button primary" href="#story">Enter the story</a>
+              <a class="button secondary" href="#vision">View the vision</a>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="card-label">Realm Map</div>
+            <div class="map-box" aria-label="Kingdom of Oaks map illustration">
+              <div class="map-text">Kingdom of Oaks</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="story">
+        <div class="container">
+          <div class="section-heading">
+            <h2>What is ElephasHouse?</h2>
+            <p>An imagined home for a deeper mythic story, shaped by legend, ancestry, and the quiet power of place.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature">
+              <h3>Story-first</h3>
+              <p>Every page is designed to feel like a chapter in a larger living narrative, unfolding over time.</p>
+            </article>
+            <article class="feature">
+              <h3>Mythic identity</h3>
+              <p>The world is rooted in memory, ritual, and symbolic landscapes that carry emotional weight.</p>
+            </article>
+            <article class="feature" id="vision">
+              <h3>Future-ready</h3>
+              <p>A simple, scalable foundation that can grow into a broader digital world without losing intimacy.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="story">
+        <div class="container story-grid">
+          <div class="story-block">
+            <div class="card-label">A living place</div>
+            <p>
+              ElephasHouse is more than a website. It is a threshold — a place for stories to be remembered, maps to be studied, and ancient symbols to return to life in a modern frame.
+            </p>
+          </div>
+
+          <div class="story-block">
+            <div class="card-label">The voice</div>
+            <p class="quote">“There are places that do not merely hold memory — they teach us how to inherit it.”</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">ElephasHouse — a home for myth, memory, and story.</div>
+    </footer>
+  </body>
 </html>
